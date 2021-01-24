@@ -4,7 +4,8 @@ let bank = {
     with:"",
     depo:"",
     trans:"",
-    famount:0,
+    exAmount:0,
+    dollar: 39.37,
     withdraw: function(amount){
         if (this.balance >=100 && amount < this.balance-100 && amount <=700 && amount>=200){
             this.balance = this.balance - amount;
@@ -25,10 +26,17 @@ let bank = {
     },
     currentBalance: function(){
         return this.balance;
+    },
+    exchangeDtoB: function(amount){
+        return amount * this.dollar;
+
+    },
+    exchangeBtoD: function(amount){
+        return amount/ this.dollar;
     }
     
-}
-service = prompt("Enter your preffered service among Withdraw, Deposit, Transfer, Balance.");
+};
+service = prompt("Enter your preffered service among Withdraw, Deposit, Transfer, Balance, Exchange.");
 serve = service.toLowerCase();
 (function(){
     if(serve === "withdraw"){
@@ -42,6 +50,21 @@ serve = service.toLowerCase();
         console.log(bank.transfer(bank.trans));
     }else if(serve === "balance"){
         console.log("Your balance is " + bank.currentBalance());
+    }else if(serve === "exchange"){
+        (function(){
+            let dbb= prompt("If you want to exchange Dollar to Birr enter 1, if you want to exchange Birr to Dollar enter 2.");
+            if(dbb === "1"){
+                bank.exAmount = prompt("Enter how much you want to exchange from Dollar to Birr.");
+                console.log("Your exchange amount is " + bank.exchangeDtoB(bank.exAmount));
+            }else if(dbb === "2"){
+                bank.exAmount = prompt("Enter how much you want to exchange from Birr to Dollar.");
+                console.log("Your exchange amount is " + bank.exchangeBtoD(bank.exAmount));
+            }else{
+                console.log("Wrong input!");
+            }
+        })();
+        
+        
     }else{
         console.log("Wrong input!");
     }
